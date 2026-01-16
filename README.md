@@ -1,48 +1,48 @@
 # Enhanced Disk Export for Lightroom
 
-**Enhanced Disk Export** — это плагин для экспорта в Lightroom Classic, который значительно расширяет стандартные возможности сохранения файлов. Основная идея плагина — предоставить пользователю гибкость настройки путей экспорта с использованием шаблонов (токенов), по аналогии с тем, как это реализовано в **Capture One**.
+**Enhanced Disk Export** is a Lightroom Classic export plug-in that significantly expands standard saving capabilities. The core idea is to provide users with flexible export path configuration using templates (tokens), similar to the export logic in **Capture One**.
 
-Плагин заменяет стандартную панель "Export To: Hard Drive" на более мощную версию, позволяя автоматически создавать структуру подпапок на основе метаданных фотографий. Это делает процесс экспорта более организованным и автоматизированным.
+The plug-in replaces the standard "Export To: Hard Drive" panel with a more powerful version, allowing you to automatically create subfolder structures based on photo metadata. This makes the export process more organized and automated.
 
-## Основные возможности
+## Key Features
 
-- **Экспорт по шаблонам (Токены)** — формируйте пути экспорта, используя переменные метаданных, такие как `{{catalog}}/{{image yyyy}}/{{rating}}`.
-- **Принцип Capture One** — динамическое создание поддиректорий на лету на основе свойств каждой конкретной фотографии.
-- **Гибкая обработка конфликтов** — выбор действия при обнаружении файла с таким же именем: спросить пользователя, автоматически переименовать, перезаписать или пропустить.
-- **Расширенная пост-обработка** — автоматическое открытие папки в проводнике/Finder, передача файла стороннему приложению (например, Photoshop или софт для ретуши) или запуск собственного скрипта сразу после экспорта.
-- **Интеграция с интерфейсом Lightroom** — использование стандартного прогресс-бара и возможность отмены операции.
+- **Token-based Export** — compose export paths using metadata variables like `{{catalog}}/{{image yyyy}}/{{rating}}`.
+- **Capture One Principle** — dynamic on-the-fly subdirectory creation based on the properties of each individual photo.
+- **Flexible Conflict Handling** — choose what happens when a file with the same name exists: prompt the user, auto-rename, overwrite, or skip.
+- **Advanced Post-Processing** — automatically open the folder in Finder/Explorer, pass the file to a third-party application (e.g., Photoshop or retouching software), or run a custom script immediately after export.
+- **Lightroom UI Integration** — uses the standard progress bar and supports operation cancellation.
 
-## Установка
+## Installation
 
-1. Скопируйте папку `EnhancedDiskExport.lrdevplugin` (или скомпилированную версию `EnhancedDiskExport.lrplugin`) в удобное место на вашем компьютере.
-2. В Lightroom Classic выберите `File` → `Plug-in Manager…`.
-3. Нажмите `Add` и выберите папку с плагином.
-4. В окне экспорта (`File` → `Export…`) выберите **Enhanced Disk Export** в списке сервисов (Export To) в левой верхней части окна.
+1. Copy the `EnhancedDiskExport.lrdevplugin` folder (or the compiled `EnhancedDiskExport.lrplugin`) to a safe location on your computer.
+2. In Lightroom Classic, go to `File` → `Plug-in Manager…`.
+3. Click `Add` and select the plug-in folder.
+4. In the Export window (`File` → `Export…`), select **Enhanced Disk Export** from the service list (Export To) in the top-left corner.
 
-## Использование и токены
+## Usage and Tokens
 
-Работа с путями в плагине построена на использовании "токенов" — специальных заполнителей в двойных фигурных скобках. При экспорте плагин заменяет их на реальные значения из метаданных каждого фото.
+Path management is built on "tokens" — special placeholders in double curly braces. During export, the plug-in replaces them with real metadata values from each photo.
 
-### Список доступных токенов
+### Available Tokens
 
-| Токен | Описание |
+| Token | Description |
 | ----- | ----------- |
-| `{{catalog}}`, `{{catalog name}}` | Имя активного каталога. |
-| `{{date}}`, `{{yyyy}}`, `{{mm}}`, `{{dd}}` | Текущая дата (время экспорта). |
-| `{{image date}}`, `{{image yyyy}}`, `{{image mm}}`, `{{image dd}}` | Дата съемки из метаданных фото. |
-| `{{orientation}}` | Ориентация: "Portrait", "Landscape" или "Square" (с учетом кадрирования). |
-| `{{folder}}` | Имя исходной папки, в которой находится фото. |
-| `{{rating}}` | Рейтинг фотографии (0–5 звезд). |
-| `{{color}}` | Цветовая метка (или `nocolor`). |
+| `{{catalog}}`, `{{catalog name}}` | Active catalog name. |
+| `{{date}}`, `{{yyyy}}`, `{{mm}}`, `{{dd}}` | Current date (export time). |
+| `{{image date}}`, `{{image yyyy}}`, `{{image mm}}`, `{{image dd}}` | Capture date from photo metadata. |
+| `{{orientation}}` | Orientation: "Portrait", "Landscape", or "Square" (respecting crop). |
+| `{{folder}}` | Name of the source folder containing the photo. |
+| `{{rating}}` | Star rating (0–5). |
+| `{{color}}` | Color label (or `nocolor`). |
 
-## Обработка существующих файлов
+## Existing File Actions
 
-Плагин позволяет выбрать, что делать, если в целевой папке уже есть файл с таким же именем:
-- **Ask what to do** — запрашивать действие для каждого случая (можно выбрать переименование, перезапись или пропуск).
-- **Choose a new name** — автоматически добавлять порядковый номер (`_2`, `_3`, ...) до тех пор, пока имя не станет уникальным.
-- **Overwrite WITHOUT WARNING** — мгновенно перезаписывать файлы (опасно!).
-- **Skip** — пропускать экспорт, если файл уже существует.
+You can choose how the plug-in handles collisions if a file already exists in the destination:
+- **Ask what to do** — prompt for action for each case (rename, overwrite, or skip).
+- **Choose a new name** — automatically append a sequence number (`_2`, `_3`, ...) until the name is unique.
+- **Overwrite WITHOUT WARNING** — immediately overwrite files (caution!).
+- **Skip** — skip export if the file already exists.
 
-## Лицензия
+## License
 
-Этот проект распространяется по лицензии **GPLv3**. Подробности в файле [LICENSE](./LICENSE).
+This project is distributed under the **GPLv3** license. See the [LICENSE](./LICENSE) file for details.
